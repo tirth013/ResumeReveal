@@ -1,0 +1,27 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4361ee" />
+      <stop offset="100%" stop-color="#4cc9f0" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background Circle -->
+  <circle cx="50" cy="50" r="48" fill="white" stroke="url(#logoGradient)" stroke-width="2" />
+  
+  <!-- Document Icon -->
+  <rect x="28" y="20" width="44" height="60" rx="4" fill="url(#logoGradient)" />
+  <rect x="35" y="30" width="30" height="3" rx="1.5" fill="white" />
+  <rect x="35" y="38" width="30" height="3" rx="1.5" fill="white" />
+  <rect x="35" y="46" width="20" height="3" rx="1.5" fill="white" />
+  
+  <!-- Data Structure Symbol -->
+  <circle cx="70" cy="70" r="17" fill="white" />
+  <rect x="62" y="64" width="16" height="2" rx="1" fill="url(#logoGradient)" />
+  <rect x="62" y="69" width="16" height="2" rx="1" fill="url(#logoGradient)" />
+  <rect x="62" y="74" width="16" height="2" rx="1" fill="url(#logoGradient)" />
+  <rect x="58" y="64" width="2" height="12" rx="1" fill="url(#logoGradient)" />
+  <circle cx="59" cy="64" r="2" fill="url(#logoGradient)" />
+  <circle cx="59" cy="69" r="2" fill="url(#logoGradient)" />
+  <circle cx="59" cy="74" r="2" fill="url(#logoGradient)" />
+</svg> 

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extraction Results - Resume Data Extractor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="header-gradient">
+        <div class="container">
+            <header class="text-center py-4">
+                <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="Resume Extractor Logo" class="app-logo">
+                <h1 class="display-4 fw-bold mb-3">Resume Analysis Results</h1>
+                <p class="lead col-md-8 mx-auto">Here's the structured data extracted from your resume</p>
+            </header>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card shadow mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-file-earmark-text fs-5 me-2"></i>
+                            <h5 class="mb-0">{{ result.filename }}</h5>
+                        </div>
+                        <a href="{{ url_for('index') }}" class="btn btn-outline-primary">
+                            <i class="bi bi-arrow-repeat me-1"></i>Process Another Resume
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-success d-flex align-items-center">
+                            <i class="bi bi-check-circle-fill me-2"></i>
+                            <div>
+                                <strong>Success!</strong> Resume processed at {{ result.processed_at }}
+                            </div>
+                        </div>
+
+                        {% if result.extracted_data %}
+                            <div class="row mt-4">
+                                <div class="col-lg-4 mb-4">
+                                    <div class="card h-100 border-0 shadow-sm">
+                                        <div class="card-header bg-transparent border-bottom-0">
+                                            <div class="d-flex align-items-center">
+                                                <i class="bi bi-person-badge fs-4 me-2 text-primary"></i>
+                                                <h4 class="m-0">Personal Info</h4>
+                                            </div>
+                                        </div>
+                                        <div class="card-body pt-0">
+                                            <div class="d-flex flex-column gap-3">
+                                                <div>
+                                                    <h6 class="text-muted mb-1">Name</h6>
+                                                    <p class="fw-medium mb-0">{{ result.extracted_data.name }}</p>
+                                                </div>
+                                                
+                                                {% if result.extracted_data.email %}
+                                                <div>
+                                                    <h6 class="text-muted mb-1">Email</h6>
+                                                    <p class="mb-0">
+                                                        <a href="mailto:{{ result.extracted_data.email }}" class="text-decoration-none">
+                                                            <i class="bi bi-envelope me-1"></i>{{ result.extracted_data.email }}
+                                                        </a>
+                                                    </p>
+                                                </div>
+                                                {% endif %}
+                                                
+                                                {% if result.extracted_data.phone %}
+                                                <div>
+                                                    <h6 class="text-muted mb-1">Phone</h6>
+                                                    <p class="mb-0">
+                                                        <i class="bi bi-telephone me-1"></i>{{ result.extracted_data.phone }}
+                                                    </p>
+                                                </div>
+                                                {% endif %}
+
+                                                {% if result.extracted_data.summary %}
+                                                <div>
+                                                    <h6 class="text-muted mb-1">Summary</h6>
+                                                    <p class="mb-0 small">{{ result.extracted_data.summary }}</p>
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {% if result.extracted_data.skills %}
+                                <div class="col-lg-8 mb-4">
+                                    <div class="card h-100 border-0 shadow-sm">
+                                        <div class="card-header bg-transparent border-bottom-0">
+                                            <div class="d-flex align-items-center">
+                                                <i class="bi bi-tools fs-4 me-2 text-primary"></i>
+                                                <h4 class="m-0">Skills</h4>
+                                            </div>
+                                        </div>
+                                        <div class="card-body pt-0">
+                                            {% for skill in result.extracted_data.skills %}
+                                                <span class="badge bg-primary me-2 mb-2">{{ skill }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+
+                            {% if result.extracted_data.experience %}
+                            <div class="card border-0 shadow-sm mb-4">
+                                <div class="card-header bg-transparent">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-briefcase fs-4 me-2 text-primary"></i>
+                                        <h4 class="m-0">Work Experience</h4>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="timeline">
+                                        {% for job in result.extracted_data.experience %}
+                                            <div class="timeline-item mb-4">
+                                                <div class="d-flex w-100 justify-content-between mb-2">
+                                                    <h5 class="fw-bold">{{ job.title }}</h5>
+                                                    <span class="badge bg-light text-dark">
+                                                        {{ job.start_date }} - {{ job.end_date if job.end_date else 'Present' }}
+                                                    </span>
+                                                </div>
+                                                <p class="fw-medium text-primary mb-2">{{ job.company }}</p>
+                                                {% if job.description %}
+                                                    <p class="mb-0 small">{{ job.description }}</p>
+                                                {% endif %}
+                                            </div>
+                                            {% if not loop.last %}<hr>{% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+
+                            {% if result.extracted_data.education %}
+                            <div class="card border-0 shadow-sm mb-4">
+                                <div class="card-header bg-transparent">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-mortarboard fs-4 me-2 text-primary"></i>
+                                        <h4 class="m-0">Education</h4>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        {% for edu in result.extracted_data.education %}
+                                            <div class="col-md-6 mb-3">
+                                                <div class="p-3 border rounded h-100">
+                                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                                        <h5 class="fw-bold mb-0">{{ edu.degree }}</h5>
+                                                        {% if edu.graduation_year %}
+                                                            <span class="badge bg-light text-dark">{{ edu.graduation_year }}</span>
+                                                        {% endif %}
+                                                    </div>
+                                                    <p class="mb-0 text-primary">{{ edu.institution }}</p>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+
+                            <div class="card border-0 shadow-sm">
+                                <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-filetype-json fs-4 me-2 text-primary"></i>
+                                        <h4 class="m-0">Raw JSON Data</h4>
+                                    </div>
+                                    <button class="btn btn-sm btn-outline-secondary" 
+                                            onclick="copyToClipboard()" 
+                                            id="copyBtn">
+                                        <i class="bi bi-clipboard me-1"></i>Copy
+                                    </button>
+                                </div>
+                                <div class="card-body">
+                                    <pre class="bg-light p-3 rounded mb-0" id="jsonData"><code>{{ result.extracted_data | tojson(indent=2) }}</code></pre>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="alert alert-warning d-flex align-items-center">
+                                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                                <div>No data could be extracted from this resume.</div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="text-center mt-5 mb-3">
+            <p>Resume Data Extraction Pipeline &copy; 2025</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function copyToClipboard() {
+            const jsonText = document.getElementById('jsonData').innerText;
+            navigator.clipboard.writeText(jsonText).then(() => {
+                const copyBtn = document.getElementById('copyBtn');
+                copyBtn.innerHTML = '<i class="bi bi-check-lg me-1"></i>Copied';
+                setTimeout(() => {
+                    copyBtn.innerHTML = '<i class="bi bi-clipboard me-1"></i>Copy';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html> 

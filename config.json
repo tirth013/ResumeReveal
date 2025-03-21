@@ -1,0 +1,46 @@
+{
+  "document_directory": "docs",
+  "output_directory": "output",
+  "llm_provider": "groq",
+  "model_name": "llama3-70b-8192",
+  "batch_size": 5,
+  "confidence_threshold": 0.8,
+  "evaluation": {
+    "log_directory": "evaluation_logs",
+    "metrics": [
+      "accuracy",
+      "completeness",
+      "field_accuracy"
+    ]
+  },
+  "document_types": {
+    "resume": {
+      "confidence_threshold": 0.7,
+      "required_fields": [
+        "name",
+        "skills",
+        "education",
+        "experience"
+      ]
+    },
+    "invoice": {
+      "confidence_threshold": 0.8,
+      "required_fields": [
+        "invoice_number",
+        "date",
+        "vendor_name",
+        "line_items",
+        "total"
+      ]
+    },
+    "contract": {
+      "confidence_threshold": 0.75,
+      "required_fields": [
+        "title",
+        "effective_date",
+        "parties",
+        "clauses"
+      ]
+    }
+  }
+} 

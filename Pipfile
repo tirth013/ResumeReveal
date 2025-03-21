@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pypdf2 = "*"                # PDF text extraction
+python-docx = "*"           # DOCX text extraction
+langchain = "*"             # Framework for LLM applications
+langchain-groq = "*"        # Groq integration for LangChain
+pydantic = "*"              # Data validation
+python-dotenv = "*"         # Environment variable management
+pillow = "*"                # Python Imaging Library
+flask = "*"                 # Web framework
+werkzeug = "*"              # Utilities for Flask
+
+[dev-packages]
+pytest = "*"                # Testing
+black = "*"                 # Code formatting
+
+[requires]
+python_version = "3.12"

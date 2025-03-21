@@ -1,0 +1,15 @@
+.env
+
+# Python related
+__pycache__/
+
+
+# Logs
+*.log
+extraction_pipeline.log
+
+# Uploaded files and output 
+uploads/*
+output/*
+!uploads/.gitkeep
+!output/.gitkeep

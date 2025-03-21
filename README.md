@@ -11,11 +11,6 @@ An AI-powered resume data extraction application that transforms unstructured re
 - Command-line interface for batch processing
 - Instant, formatted results display
 
-## Prerequisites
-
-- Python 3.9 or higher installed
-- pipenv installed (`pip install pipenv`)
-
 ## Installation
 
 1. Clone the repository:

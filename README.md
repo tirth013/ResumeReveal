@@ -12,7 +12,7 @@ An AI-powered resume data extraction application that transforms unstructured re
 
 ## Prerequisites
 
-- Python 3.12
+- Python 3.9 or higher installed
 - pipenv installed (`pip install pipenv`)
 
 ## Installation
@@ -83,4 +83,4 @@ MIT
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions are welcome! Please feel free to submit a Pull Request. 
